@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Movies.Models;
+using MoviesAPI.ViewModels;
 
 namespace MoviesAPI.Controllers
 {
@@ -21,18 +22,41 @@ namespace MoviesAPI.Controllers
             _context = context;
         }
 
+
+
+
+        //// GET: Comments
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        //{
+        //    return await _context.Comments.ToListAsync();
+        //}
+
+
+
+
+        /// <summary>
+        /// Retrives all comments from DB.
+        /// </summary>
+        /// <returns>A list of comments</returns>
         // GET: Comments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comment>>> GetComments()
+        public IEnumerable<CommentGetModel> GetComments()
         {
-            return await _context.Comments.ToListAsync();
+            IQueryable<Comment> result = _context.Comments;
+            
+           return result.Select(c => CommentGetModel.GetCommentModel(c));
         }
 
 
 
 
 
-
+        /// <summary>
+        /// Retrives the comment you specify by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>The comment with the given id.</returns>
         // GET: Comments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetComment(int id)
@@ -47,9 +71,17 @@ namespace MoviesAPI.Controllers
             return comment;
         }
 
-        // PUT: api/Comments/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
+
+
+
+        /// <summary>
+        /// Edit various properties of a comment you specify by its id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="comment"></param>
+        /// <returns>Nn edited comment.</returns>
+        // PUT: Comments/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutComment(int id, Comment comment)
         {
@@ -79,10 +111,32 @@ namespace MoviesAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Comments
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+
+
+
+        /// <summary>
+        /// Creates a new comment.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Comments
+        ///          {
+        ///            "id": 4,
+        ///            "movieID": 2,
+        ///            "text": "Awesome",
+        ///            "important": false
+        ///           }
+        ///
+        /// </remarks>
+        /// <param name="comment"></param>
+        /// <returns>A newly created comment</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response> 
+        // POST: /
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Comment>> PostComment(Comment comment)
         {
             _context.Comments.Add(comment);
@@ -91,7 +145,16 @@ namespace MoviesAPI.Controllers
             return CreatedAtAction("GetComment", new { id = comment.Id }, comment);
         }
 
-        // DELETE: api/Comments/5
+
+
+
+        /// <summary>
+        /// Deletes a specific comment.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the comment deleted.</returns>
+        // DELETE: /5
+        // DELETE: Comments/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Comment>> DeleteComment(int id)
         {
@@ -107,6 +170,10 @@ namespace MoviesAPI.Controllers
             return comment;
         }
 
+
+
+
+
         private bool CommentExists(int id)
         {
             return _context.Comments.Any(e => e.Id == id);
@@ -116,31 +183,5 @@ namespace MoviesAPI.Controllers
 
 
 
-
-
-        //// GET: /getCommByMovie/?idMovie=a
-        //[HttpGet("getCommByMovie")]
-        //public List<Comment> GetCommentsForMovie(long idMovie)
-        //{
-        //    var comments = (from m in _context.Movies
-        //                    where m.ID == idMovie
-        //                    select m.Comments)
-        //               .ToList();
-        //    return comments;
-        //}
-
-
-        //// GET: /getCommByMovie/?idMovie=a&idComment=b
-        //[HttpGet("getCommByMovie")]
-        //public System.Linq.IQueryable<Comment> GetCommentsForMovie(long idMovie, long idComment)
-        //{
-
-        //    var com = from movie in _context.Movies
-        //              where movie.ID == idMovie
-        //              join comment in _context.Comments
-        //                                where comment.Id == idComment
-        //              select comment;
-        //    return com;
-        //}
     }
 }

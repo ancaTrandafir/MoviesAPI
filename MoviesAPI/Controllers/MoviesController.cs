@@ -11,9 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Movies;
+using MoviesAPI.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace HotelMng.Controllers
 {
+    [Produces("application/json")]
     [ApiController]
     [Route("[controller]")]
     public class MoviesController : ControllerBase
@@ -29,54 +32,84 @@ namespace HotelMng.Controllers
         }
 
 
-
+        /// <summary>
+        /// Retrieves a list of all movies from DB.
+        /// </summary>
+        /// <returns>List of movies</returns>
         // GET: movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetReservations()
+        public IEnumerable<MovieGetModel> GetReservations()     // get de view model care are nr de comm
         {
+            IQueryable<Movie> result = _context.Movies
+                                        .Include(m => m.Comments);
 
-            return await _context.Movies.ToListAsync();
+            return result.Select(m => MovieGetModel.GetMovieModel(m)); 
         }
 
 
 
 
+        //// GET: movie/5
+        //[HttpGet("{id}")]
+        //public async Task<List<Comment>> GetComments(long id)
+        //{
+
+        //    var movie = await _context.Movies
+        //          .Include(m => m.Comments)     // se incarca proprieteatea movie.Comment
+
+        //          .AsNoTracking()
+        //          .FirstOrDefaultAsync(m => m.ID == id);
+
+        //    List<Comment> ListOfComments= new List<Comment>();
+        //    var comments = from c in _context.Comments
+        //                       where movie.ID == c.MovieID
+        //                       select c;
+
+        //    foreach (var comm in comments)
+        //    {
+        //        ListOfComments.Add(comm);
+        //    }
+
+        //    return ListOfComments;
+        //}
+
+
+
+
+
+        /// <summary>
+        /// Retrieves a specific movie by id, list of its comments included.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the movie specified by id and its list of comments.</returns>
         // GET: movie/5
         [HttpGet("{id}")]
-        public async Task<List<Comment>> GetComments(long id)
+        public Movie GetMovieById(long id)
         {
 
-            var movie = await _context.Movies
-                  .Include(m => m.Comments)     // se incarca proprieteatea movie.Comment
-                                               
-                  .AsNoTracking()
-                  .FirstOrDefaultAsync(m => m.ID == id);
-            //if (movie == null)
-            //{
-            //    return NotFound();
-            //}
+            var movie = _context.Movies
+                  .Include(m => m.Comments)     // se incarca proprieteatea movie.Comment       
+                  .FirstOrDefault(m => m.ID == id);
 
+            // JsonException: A possible object cycle was detected which is not supported. 
+            // This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32.
+            // Solution: Microsoft.AspNetCore.Mvc.NewtonsoftJson din Nugget; add service in StartUp
 
-            List<Comment> ListOfComments= new List<Comment>();
-            var comments = from c in _context.Comments
-                               where movie.ID == c.MovieID
-                               select c;
-
-            foreach (var comm in comments)
-            {
-                ListOfComments.Add(comm);
-            }
-
-            //Distinct the list of duplicates
-           // var ListOfComments = ListOfAllUsers.Distinct().ToList();
-
-
-            return ListOfComments;
-        }
+            return movie;
+         }
 
 
 
-
+        /// <summary>
+        /// Retrieves filtered movies, added between certain dates, also alphabetically ordered.
+        /// </summary>
+        /// <remarks>
+        /// Sample URL request:
+        ///    https://localhost:44335/movies/filter?$from=2020-05-15T00:00:00&to=2020-05-17T00:00:00
+        /// </remarks>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <returns>A list of movies with dateAdded between the two specified dates.</returns>
         // GET: movies/filter?from=a&to=b
         [HttpGet("filter")]
         public IOrderedQueryable<Movie> GetFilteredMovies(String from, String to)
@@ -86,7 +119,7 @@ namespace HotelMng.Controllers
             //  DateTime toDate = DateTime.ParseExact(to, "dd.MM.yyyy", null);
 
             // LINQ
-            var results = _context.Movies.Where(o => fromDate.CompareTo(o.DateAdded) == -1 && toDate.CompareTo(o.DateAdded) == -1);
+            var results = _context.Movies.Where(o => fromDate.CompareTo(o.DateAdded) == -1 && toDate.CompareTo(o.DateAdded) == 1);
 
             var sortedResultsByYearOfRelease = results.OrderBy(o => o.YearOfRelease);
 
@@ -97,7 +130,12 @@ namespace HotelMng.Controllers
 
 
 
-
+    /// <summary>
+    /// Edit any properties of a specific movie you mention by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="movie"></param>
+    /// <returns></returns>
         // PUT: movie/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(long id, Movie movie)
@@ -123,9 +161,35 @@ namespace HotelMng.Controllers
 
 
 
-
+        /// <summary>
+        /// Creates a new movie.
+        /// </summary>
+        /// <param name="movie"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /Movies
+        ///      {
+        ///         "id": "3",
+        ///         "dateAdded": "10.04.2019",
+        ///         "description": "Frodo",
+        ///         "director": "Steven Spielberg",
+        ///         "duration": "120",
+        ///         "rating": "10",
+        ///         "title": "Stapanul inelelor3",
+        ///         "watched": "True",
+        ///         "yearOfRelease": "2000"
+        ///       }
+        ///
+        /// </remarks>
+        /// <param name="movie"></param>
+        /// <returns>A newly created movie</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response> 
         // POST: /movie
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostMovie(Movie movie)
         {
 
@@ -141,7 +205,11 @@ namespace HotelMng.Controllers
 
 
 
-
+        /// <summary>
+        /// Deletes the movie tou specify by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns the movie deleted.</returns>
         // DELETE: /5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Movie>> DeleteMovie(long id)
@@ -168,14 +236,6 @@ namespace HotelMng.Controllers
 
 
 
-
-        //private static bool haveMax20Comm(List<Comment> comments)
-        //{
-        //    var results = context.Movies.Where(o => fromDate.CompareTo(o.DateAdded)
-
-
-
-        //}
 
 
 

@@ -2,6 +2,7 @@ using Movies.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Movies.Models
 {
@@ -36,6 +37,7 @@ namespace Movies.Models
         [StringLength(30, MinimumLength = 3)]
         public string Director { get; set; }
 
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAdded { get; set; }
 
@@ -44,6 +46,7 @@ namespace Movies.Models
 
         public bool Watched { get; set; }
 
+        [JsonIgnore]
         public List<Comment> Comments { get; set; }
     }
 

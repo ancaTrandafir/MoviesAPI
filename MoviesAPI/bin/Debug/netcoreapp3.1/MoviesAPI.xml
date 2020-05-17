@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MoviesAPI</name>
+    </assembly>
+    <members>
+        <member name="M:MoviesAPI.Controllers.CommentsController.PostComment(Movies.Models.Comment)">
+             <summary>
+             Creates a new comment.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Comments
+                      {
+                        "id": 4,
+                        "movieID": 2,
+                        "text": "Awesome",
+                        "important": false
+                       }
+            
+             </remarks>
+             <param name="comment"></param>
+             <returns>A newly created comment</returns>
+             <response code="201">Returns the newly created item</response>
+             <response code="400">If the item is null</response> 
+        </member>
+        <member name="M:MoviesAPI.Controllers.CommentsController.DeleteComment(System.Int32)">
+            <summary>
+            Deletes a specific comment.
+            </summary>
+            <param name="id"></param>
+            <returns>Returns the comment deleted.</returns>
+        </member>
+        <member name="M:HotelMng.Controllers.MoviesController.GetReservations">
+            <summary>
+            Retrieves a list of all movies from DB.
+            </summary>
+            <returns>List of movies</returns>
+        </member>
+        <member name="M:HotelMng.Controllers.MoviesController.GetMovieById(System.Int64)">
+            <summary>
+            Retrieves a specific movie by id, list of its comments included.
+            </summary>
+            <param name="id"></param>
+            <returns>Returns the movie specified by id and its list of comments.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:HotelMng.Controllers.MoviesController.GetFilteredMovies(System.String,System.String)" -->
+        <member name="M:HotelMng.Controllers.MoviesController.PutMovie(System.Int64,Movies.Models.Movie)">
+            <summary>
+            Edit any properties of a specific movie you mention by id.
+            </summary>
+            <param name="id"></param>
+            <param name="movie"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HotelMng.Controllers.MoviesController.PostMovie(Movies.Models.Movie)">
+             <summary>
+             Creates a new movie.
+             </summary>
+             <param name="movie"></param>
+             <remarks>
+             Sample request:
+            
+                 POST /Movies
+                  {
+                     "id": "3",
+                     "dateAdded": "10.04.2019",
+                     "description": "Frodo",
+                     "director": "Steven Spielberg",
+                     "duration": "120",
+                     "rating": "10",
+                     "title": "Stapanul inelelor3",
+                     "watched": "True",
+                     "yearOfRelease": "2000"
+                   }
+            
+             </remarks>
+             <param name="movie"></param>
+             <returns>A newly created movie</returns>
+             <response code="201">Returns the newly created item</response>
+             <response code="400">If the item is null</response> 
+        </member>
+        <member name="M:HotelMng.Controllers.MoviesController.DeleteMovie(System.Int64)">
+            <summary>
+            Deletes the movie tou specify by id.
+            </summary>
+            <param name="id"></param>
+            <returns>Returns the movie deleted.</returns>
+        </member>
+    </members>
+</doc>
