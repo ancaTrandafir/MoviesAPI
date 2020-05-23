@@ -15,7 +15,7 @@ namespace MoviesAPI.ViewModels
         public int Duration { get; set; }
         public int YearOfRelease { get; set; }
         public string Director { get; set; }
-        public DateTime DateAdded { get; set; }
+        public string DateAdded { get; set; }
         public int Rating { get; set; }
         public bool Watched { get; set; }
         public int NumberOfComments { get; set; }

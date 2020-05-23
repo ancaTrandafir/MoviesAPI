@@ -1,0 +1,42 @@
+<h2 class="text-center">List of movies</h2>
+<br>
+
+<table class="table table-hover">
+
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Genre</th>
+            <th>Duration</th>
+            <th>Year of release</th>
+            <th>Director</th>
+            <th>Date added</th>
+            <th>Rating</th>
+            <th>Watched</th>
+            <th>Number of comments</th>
+        </tr>
+    </thead>
+
+   
+    <tr *ngFor="let m of movies">
+
+        <td>{{m.id}}</td>
+        <td>{{m.title}}</td>
+        <td>{{m.desciption}}</td>
+        <td>{{m.genre}}</td>
+        <td>{{m.duration}}</td>
+        <td>{{m.yearOfRelease}}</td>
+        <td>{{m.director}}</td>
+        <td>{{m.dateAdded}}</td>
+        <td>{{m.rating}}</td>
+        <td>{{m.watched}}</td>
+        <td>{{m.numberOfComments}}</td>
+
+    </tr>
+
+</table>
+
+
+

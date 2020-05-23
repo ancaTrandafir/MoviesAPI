@@ -122,7 +122,6 @@ namespace MoviesAPI.Controllers
         ///
         ///     POST /Comments
         ///          {
-        ///            "id": 4,
         ///            "movieID": 2,
         ///            "text": "Awesome",
         ///            "important": false

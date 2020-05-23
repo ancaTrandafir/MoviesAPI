@@ -1,14 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "mEpUw4gvCoqx+M8+zdCriROaSgu1UYE4VaXSbWpn3EEzP0vEu7uAxBlzmQBhpHeYy2kPYMlbGgfOZtX0enkezQ==",
+  "dgSpecHash": "N8U5/ezPPxT/6173+HGGYfVrrNTzDCYuPyniY4eSMTmdCJ3ZkmkfttuBDLirbip7hMNhf3duqWMAXFMMc60EGw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ancat\\source\\repos\\MoviesAPI\\MoviesAPI\\MoviesAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ancat\\.nuget\\packages\\fluentvalidation\\8.6.2\\fluentvalidation.8.6.2.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\fluentvalidation.aspnetcore\\8.6.2\\fluentvalidation.aspnetcore.8.6.2.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\8.6.2\\fluentvalidation.dependencyinjectionextensions.8.6.2.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnet.cors\\5.2.7\\microsoft.aspnet.cors.5.2.7.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.4\\microsoft.aspnetcore.jsonpatch.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.4\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnetcore.nodeservices\\3.1.4\\microsoft.aspnetcore.nodeservices.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnetcore.spaservices\\3.1.4\\microsoft.aspnetcore.spaservices.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\3.1.4\\microsoft.aspnetcore.spaservices.extensions.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -28,9 +32,15 @@
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.1.4\\microsoft.extensions.configuration.binder.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.1.4\\microsoft.extensions.dependencyinjection.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.1.4\\microsoft.extensions.dependencyinjection.abstractions.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\3.1.4\\microsoft.extensions.fileproviders.abstractions.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\3.1.4\\microsoft.extensions.fileproviders.physical.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\3.1.4\\microsoft.extensions.filesystemglobbing.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.logging\\3.1.4\\microsoft.extensions.logging.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.4\\microsoft.extensions.logging.abstractions.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.logging.configuration\\3.1.4\\microsoft.extensions.logging.configuration.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.logging.console\\3.1.4\\microsoft.extensions.logging.console.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.options\\3.1.4\\microsoft.extensions.options.3.1.4.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.1.4\\microsoft.extensions.options.configurationextensions.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.4\\microsoft.extensions.primitives.3.1.4.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.identity.client\\3.0.8\\microsoft.identity.client.3.0.8.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
@@ -106,5 +116,16 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Cors 5.2.7' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Cors",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

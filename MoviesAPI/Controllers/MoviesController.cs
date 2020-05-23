@@ -106,26 +106,31 @@ namespace HotelMng.Controllers
         /// <remarks>
         /// Sample URL request:
         ///    https://localhost:44335/movies/filter?$from=2020-05-15T00:00:00&to=2020-05-17T00:00:00
+        /// Sample parameter: yyyy-MM-dd   
         /// </remarks>
         /// <param name="from"></param>
         /// <param name="to"></param>
         /// <returns>A list of movies with dateAdded between the two specified dates.</returns>
         // GET: movies/filter?from=a&to=b
         [HttpGet("filter")]
-        public IOrderedQueryable<Movie> GetFilteredMovies(String from, String to)
+        public IEnumerable<Movie> GetFilteredMovies(String from, String to)
         {
             DateTime fromDate = Convert.ToDateTime(from);
             DateTime toDate = Convert.ToDateTime(to);
-            //  DateTime toDate = DateTime.ParseExact(to, "dd.MM.yyyy", null);
 
             // LINQ
-            var results = _context.Movies.Where(o => fromDate.CompareTo(o.DateAdded) == -1 && toDate.CompareTo(o.DateAdded) == 1);
+            // https://stackoverflow.com/questions/58166970/migrating-from-ef-core-2-to-ef-core-3
+            var results = _context.Movies.AsEnumerable()
+                .Where(o => (DateTime.Parse(o.DateAdded) > fromDate) && (DateTime.Parse(o.DateAdded) < toDate));
+                
+            //var sortedResultsByYearOfRelease = results.OrderBy(o => o.YearOfRelease);
 
-            var sortedResultsByYearOfRelease = results.OrderBy(o => o.YearOfRelease);
-
-            return sortedResultsByYearOfRelease;  // type IOrderedQueryable
+            //  return sortedResultsByYearOfRelease;  // type IOrderedQueryable
+            return results.OrderBy(m => m.YearOfRelease);
         }
 
+
+      
 
 
 
@@ -136,7 +141,7 @@ namespace HotelMng.Controllers
     /// <param name="id"></param>
     /// <param name="movie"></param>
     /// <returns></returns>
-        // PUT: movie/5
+            // PUT: movie/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(long id, Movie movie)
         {
@@ -171,7 +176,7 @@ namespace HotelMng.Controllers
         ///     POST /Movies
         ///      {
         ///         "id": "3",
-        ///         "dateAdded": "10.04.2019",
+        ///         "dateAdded": "2019-04-05",
         ///         "description": "Frodo",
         ///         "director": "Steven Spielberg",
         ///         "duration": "120",

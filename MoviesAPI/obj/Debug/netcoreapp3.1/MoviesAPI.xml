@@ -4,6 +4,27 @@
         <name>MoviesAPI</name>
     </assembly>
     <members>
+        <member name="M:MoviesAPI.Controllers.CommentsController.GetComments">
+            <summary>
+            Retrives all comments from DB.
+            </summary>
+            <returns>A list of comments</returns>
+        </member>
+        <member name="M:MoviesAPI.Controllers.CommentsController.GetComment(System.Int32)">
+            <summary>
+            Retrives the comment you specify by id.
+            </summary>
+            <param name="id"></param>
+            <returns>The comment with the given id.</returns>
+        </member>
+        <member name="M:MoviesAPI.Controllers.CommentsController.PutComment(System.Int32,Movies.Models.Comment)">
+            <summary>
+            Edit various properties of a comment you specify by its id.
+            </summary>
+            <param name="id"></param>
+            <param name="comment"></param>
+            <returns>Nn edited comment.</returns>
+        </member>
         <member name="M:MoviesAPI.Controllers.CommentsController.PostComment(Movies.Models.Comment)">
              <summary>
              Creates a new comment.
@@ -13,7 +34,6 @@
             
                  POST /Comments
                       {
-                        "id": 4,
                         "movieID": 2,
                         "text": "Awesome",
                         "important": false
@@ -65,7 +85,7 @@
                  POST /Movies
                   {
                      "id": "3",
-                     "dateAdded": "10.04.2019",
+                     "dateAdded": "2019-04-05",
                      "description": "Frodo",
                      "director": "Steven Spielberg",
                      "duration": "120",

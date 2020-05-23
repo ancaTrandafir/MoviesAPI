@@ -47,6 +47,7 @@ namespace MoviesAPI
 
             services.AddDbContext<MoviesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));  // DefaultConn e specificat in appstettings.json
 
+            services.AddCors(); // Cross origins between Angular and API
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -75,13 +76,29 @@ namespace MoviesAPI
                 c.IncludeXmlComments(xmlPath);
 
             });
+
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "wwwroot/dist";
+            });
         }
+
+
 
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            // Configurations to consume the Web API from Port 4200 (Angular App)
+            app.UseCors(options =>
+             options.WithOrigins("http://localhost:4200")        // Angular URL
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -104,9 +121,24 @@ namespace MoviesAPI
 
             app.UseAuthorization();
 
+            app.UseSpaStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "wwwroot";
+
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseAngularCliServer(npmScript: "start");
+                //}
             });
         }
     }
