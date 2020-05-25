@@ -19,7 +19,7 @@ namespace MoviesAPI.ModelValidator
 				.MaximumLength(20);
 			RuleFor(x => x.DateAdded).NotEmpty();
 
-			RuleFor(x => (DateTime.Parse(x.DateAdded) < (DateTime.Now.Date)));
+			RuleFor(x => (x.DateAdded) < (DateTime.Now.Date));
 		}
 
 		

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MoviesAPI.Migrations
 {
@@ -18,7 +19,7 @@ namespace MoviesAPI.Migrations
                     Duration = table.Column<int>(nullable: false),
                     YearOfRelease = table.Column<int>(nullable: false),
                     Director = table.Column<string>(maxLength: 30, nullable: true),
-                    DateAdded = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false),
                     Rating = table.Column<int>(nullable: false),
                     Watched = table.Column<bool>(nullable: false)
                 },

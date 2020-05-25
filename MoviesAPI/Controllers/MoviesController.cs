@@ -38,7 +38,7 @@ namespace HotelMng.Controllers
         /// <returns>List of movies</returns>
         // GET: movies
         [HttpGet]
-        public IEnumerable<MovieGetModel> GetReservations()     // get de view model care are nr de comm
+        public IEnumerable<MovieGetModel> GetMovies()     // get de view model care are nr de comm
         {
             IQueryable<Movie> result = _context.Movies
                                         .Include(m => m.Comments);
@@ -113,20 +113,24 @@ namespace HotelMng.Controllers
         /// <returns>A list of movies with dateAdded between the two specified dates.</returns>
         // GET: movies/filter?from=a&to=b
         [HttpGet("filter")]
-        public IEnumerable<Movie> GetFilteredMovies(String from, String to)
+        public IEnumerable<MovieGetModel> GetFilteredMovies(
+            [FromQuery] string from,
+            [FromQuery] string to)
         {
-            DateTime fromDate = Convert.ToDateTime(from);
-            DateTime toDate = Convert.ToDateTime(to);
+            DateTime fromDate = DateTime.Parse(from);
+            DateTime toDate = DateTime.Parse(to);
 
             // LINQ
-            // https://stackoverflow.com/questions/58166970/migrating-from-ef-core-2-to-ef-core-3
-            var results = _context.Movies.AsEnumerable()
-                .Where(o => (DateTime.Parse(o.DateAdded) > fromDate) && (DateTime.Parse(o.DateAdded) < toDate));
-                
-            //var sortedResultsByYearOfRelease = results.OrderBy(o => o.YearOfRelease);
+            //  var result = _context.Movies
+            // nu mai este query de sql daca nu mai lucrez cu db(context)
+            var result = this.GetMovies()       // nu lucrez cu context.Movies pt ca imi treb o lista de modele care includ nr comm pt tabelget Angular
+                .Where(o => (o.DateAdded > fromDate) && (o.DateAdded < toDate));
 
-            //  return sortedResultsByYearOfRelease;  // type IOrderedQueryable
-            return results.OrderBy(m => m.YearOfRelease);
+            var query =  result
+                .OrderBy(o => o.YearOfRelease);
+              //  .ToListAsync();
+   
+            return query;
         }
 
 

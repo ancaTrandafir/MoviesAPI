@@ -37,7 +37,8 @@ namespace Movies.Models
         [StringLength(30, MinimumLength = 3)]
         public string Director { get; set; }
 
-        public string DateAdded { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime DateAdded { get; set; }
 
         [Range(1, 10)]
         public int Rating { get; set; }

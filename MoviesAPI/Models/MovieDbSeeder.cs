@@ -33,7 +33,7 @@ namespace Movies.Models
                     Duration = 120,
                     YearOfRelease = 2010,
                     Director = "Steven Spielberg",
-                    DateAdded = "2020-05-02",
+                    DateAdded = DateTime.Now,
                     Rating = 10,
                     Watched = false
                 },
@@ -46,7 +46,7 @@ namespace Movies.Models
                     Duration = 120,
                     YearOfRelease = 1970,
                     Director = "Ronald Figgure",
-                    DateAdded = "2020-05-10",
+                    DateAdded = DateTime.Now,
                     Rating = 10,
                     Watched = true
                 }

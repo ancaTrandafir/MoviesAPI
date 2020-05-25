@@ -52,7 +52,7 @@
             <param name="id"></param>
             <returns>Returns the comment deleted.</returns>
         </member>
-        <member name="M:HotelMng.Controllers.MoviesController.GetReservations">
+        <member name="M:HotelMng.Controllers.MoviesController.GetMovies">
             <summary>
             Retrieves a list of all movies from DB.
             </summary>
