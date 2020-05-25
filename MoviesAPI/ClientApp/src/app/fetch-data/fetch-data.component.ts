@@ -55,5 +55,39 @@ export class FetchDataComponent implements OnInit {
         console.log("filter");
         console.log(this.movies);
     }
+
+
+    // update
+    populateForm(movie: Movie)  // populam form cu movie selectat si incarcat din server
+    {                           // form data este proprietatea din service referitoare la form
+
+        // this.service.formData = movie;  // se editeaza live in lista si nu vreau, si atunci creez copie cu object.assign
+
+        this.service.formData = Object.assign({}, movie);  // in formData pune o copie a obiectului meu movie
+        console.log("formdata din populate form " +this.service.formData);
+        // Since the form is bound to formData properties,
+        // the form field will get with populated corresponding details.
+
+        console.log("click works");
+        console.log(movie);
+        console.log(movie.Title);
+        console.log(this.service.formData.Title);
+    }
+
+
+
+    onDelete(id) {
+        console.log("id este " + id);
+        this.service.deleteMovie(id)
+            .subscribe(response => {
+                console.log("successfully deleted");
+                this.getAllMovies(); // refresh
+            },
+                error => {
+                    console.log(error);
+                });
+  
+    }
+
 }
 

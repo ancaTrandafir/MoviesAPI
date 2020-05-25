@@ -51,8 +51,9 @@
             <td>{{m.watched}}</td>
             <td>{{m.numberOfComments}}</td>  
             <td>
-                <a [routerLink]="['/fetch-data', m.id]" routerLinkActive="active"></a>
-                Details
+                <a [routerLink]="['/fetch-data', m.id]" routerLinkActive="active"> Details</a>
+                <a [routerLink]="['/update', m.id]" routerLinkActive="active" (click)="populateForm(m)"> Update</a>
+                <a [routerLink]="['/delete', m.id]" routerLinkActive="active" (click)="onDelete(m.id)"> Delete</a>
             </td>  <!-- transmit id prin router link -->
 
         </tr>

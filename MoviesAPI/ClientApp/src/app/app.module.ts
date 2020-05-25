@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { MovieService } from './shared/movie.service';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailsComponent } from './details/details.component';
+import { AddMovieComponent } from './add-movie/add-movie.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DetailsComponent } from './details/details.component';
         NavMenuComponent,
         HomeComponent,
         FetchDataComponent,
-        DetailsComponent
+        DetailsComponent,
+        AddMovieComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

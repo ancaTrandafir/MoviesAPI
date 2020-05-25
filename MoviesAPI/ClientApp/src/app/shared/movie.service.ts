@@ -6,21 +6,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
     providedIn: 'root'
 })
+
 export class MovieService {
 
     readonly rootURL = "https://localhost:44335";
-    movieList: Movie[];
-    selectedMovie: Movie;
+    public formData: Movie;
 
 
     constructor(private http: HttpClient) {}
-  
 
-  //postMovie() {    
-  //  return this.http.post(this.rootURL + '/movies', this.formData);   // POST function returns Observable
-  //  // returneaza un movie tip service.formData
-  //}
 
+
+    postMovie() {
+        console.log("din service" + this.formData.Title)
+    return this.http.post(this.rootURL + '/movies', this.formData);   // POST function returns Observable
+    // returneaza un movie tip service.formData
+    
+  }
 
 
 
@@ -43,10 +45,14 @@ export class MovieService {
         return this.http.get<Movie[]>(this.rootURL + '/movies/filter?from=' + from + '&to=' + to);
     }
 
-  //updateMovie(formData: Movie) {
-  //  return this.http.put(this.rootURL + '/movies/' + formData.ID, this.formData);   // transmite URL si ID in PUT request prin concatenare
-  //  // returneaza un Observable
-  //}
+
+
+    updateMovie(formData: Movie) {
+        console.log("movie din update service" + formData);
+    return this.http.put(this.rootURL + '/movies/' + formData.ID, this.formData);   // transmite URL si ID in PUT request prin concatenare
+    // returneaza un Observable
+
+  }
 
 
 
