@@ -82,7 +82,7 @@ namespace HotelMng.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Returns the movie specified by id and its list of comments.</returns>
-        // GET: movie/5
+        // GET: movies/5
         [HttpGet("{id}")]
         public Movie GetMovieById(long id)
         {

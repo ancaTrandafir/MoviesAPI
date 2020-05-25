@@ -16,6 +16,8 @@
             <th>Rating</th>
             <th>Watched</th>
             <th>Number of comments</th>
+            <th>Operations</th>
+
         </tr>
     </thead>
 
@@ -33,10 +35,16 @@
         <td>{{m.rating}}</td>
         <td>{{m.watched}}</td>
         <td>{{m.numberOfComments}}</td>
+        <td> 
+             <a [routerLink]="['/fetch-data', m.id]" routerLinkActive="active"></a>
+        Details
+        </td>  <!-- transmit id prin router link -->
 
     </tr>
 
 </table>
+
+
 
 
 
