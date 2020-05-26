@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "N8U5/ezPPxT/6173+HGGYfVrrNTzDCYuPyniY4eSMTmdCJ3ZkmkfttuBDLirbip7hMNhf3duqWMAXFMMc60EGw==",
+  "dgSpecHash": "ZCZq+GnVWgHhjQ5tHa0HdurOut6y/va1nPo+d3qdsY5WsLQbUu0ti/mgZVzT7uTYvFkKrbjg+ZC9t8JpdUhK+g==",
   "success": true,
   "projectFilePath": "C:\\Users\\ancat\\source\\repos\\MoviesAPI\\MoviesAPI\\MoviesAPI.csproj",
   "expectedPackageFiles": [
@@ -47,7 +47,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\microsoft.openapi\\1.1.4\\microsoft.openapi.1.1.4.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
-    "C:\\Users\\ancat\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\ancat\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\ancat\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

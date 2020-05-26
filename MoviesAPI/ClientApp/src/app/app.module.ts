@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { MovieService } from './shared/movie.service';
+import { MovieCommService } from './shared/movieComm.service';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailsComponent } from './details/details.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';

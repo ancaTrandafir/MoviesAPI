@@ -34,16 +34,26 @@ namespace MoviesAPI
         {
             services
                 .AddControllers()
-                .AddJsonOptions(options =>
-                {
-                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                    options.JsonSerializerOptions.IgnoreNullValues = true;
-                })
+
+                //.AddJsonOptions(options =>
+                //{
+                //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());      // cand nu am NewtonSoft ca sa imi apara enum ca string si nu int
+                //    options.JsonSerializerOptions.IgnoreNullValues = true;                            // cand nu am NewtonSoft pun adnotari la clasa model tip enum si import newtonsoft
+
+                //})
+
+                .AddNewtonsoftJson()
+
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
-            services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        );
+
+            services.AddControllers().AddNewtonsoftJson(options =>                  // sa nu avem ciclu infinit din caauza referintelor duble Movie - Comment
+               options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddControllers().AddNewtonsoftJson(options => {     // by default, Newtonsoft face camelCase si eu vreau PascalCase
+                options.UseMemberCasing();                      // daca nu aveam Newtonsoft, by default era PascalCase
+            });
+
 
             services.AddDbContext<MoviesDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));  // DefaultConn e specificat in appstettings.json
 

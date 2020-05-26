@@ -1,7 +1,9 @@
 using Movies.Models;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
 namespace Movies.Models
@@ -9,6 +11,7 @@ namespace Movies.Models
 
     public enum Genre
     {
+        [EnumMember]        // using System.Runtime.Serialization
         Adventure,
         Comedy,
         Horror,
@@ -18,8 +21,7 @@ namespace Movies.Models
 
     public class Movie
     {
-
-        public long ID { get; set; }
+        public long Id { get; set; }
 
         [StringLength(50, MinimumLength = 3)]
         public string Title { get; set; }
@@ -27,6 +29,7 @@ namespace Movies.Models
         [StringLength(150, MinimumLength = 3)]
         public string Description { get; set; }
 
+        [JsonConverter(typeof(StringEnumConverter))]        // using Newtonsoft Json Converters
         public Genre Genre { get; set; }
 
         public int Duration { get; set; }

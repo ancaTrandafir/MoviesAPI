@@ -11,7 +11,8 @@ export class MovieService {
 
     readonly rootURL = "https://localhost:44335";
     public formData: Movie;
-
+    public updateBtnMovieClicked;  // initial butonul de update nu e apasat; il importam in fetch-data
+    public idCopied: number;  // copiez id sa pot apela la update pt ca voi redefini id ca undefined intre timp
 
     constructor(private http: HttpClient) {}
 
@@ -33,11 +34,11 @@ export class MovieService {
   }
 
 
-    getMovieById(id) {
-        console.log("id este " + id);
-        return this.http.get<Movie>(this.rootURL + '/movies/' + id)
+    //getMovieById(id) {                // in serviceComm pt ca returnez si lista de Comments
+    //    console.log("id este " + id);
+    //    return this.http.get<Movie>(this.rootURL + '/movies/' + id)
          
-    }
+    //}
 
 
     // GET: movies/filter?from=a&to=b
@@ -48,10 +49,10 @@ export class MovieService {
 
 
     updateMovie(formData: Movie) {
-        console.log("movie din update service" + formData);
-    return this.http.put(this.rootURL + '/movies/' + formData.ID, this.formData);   // transmite URL si ID in PUT request prin concatenare
+        console.log(formData);
+    return this.http.put(this.rootURL + '/movies/' + this.idCopied, this.formData);   // transmite URL si ID in PUT request prin concatenare
     // returneaza un Observable
-
+        // in idCopied e copiata valoarea id caruia i se face updata; daca zic this.formData.Id e undefined pt ca l-am resetat in Add-Movie
   }
 
 

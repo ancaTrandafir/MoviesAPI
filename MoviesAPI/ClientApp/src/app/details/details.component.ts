@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../shared/movie.model';
-import { MovieService } from '../shared/movie.service';
+import { MovieComm } from '../shared/movieComm.model';
+import { MovieCommService } from '../shared/movieComm.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -13,9 +13,9 @@ import { Location } from '@angular/common';
 
 export class DetailsComponent implements OnInit {
 
-    public selectedMovie: Movie;
+    public selectedMovie: MovieComm;
 
-    constructor(private service: MovieService,
+    constructor(private service: MovieCommService,   // importam service-ul care include si proprietatea Comments in Movie
         private activatedRoute: ActivatedRoute,
         private location: Location) { }
 
@@ -25,48 +25,20 @@ export class DetailsComponent implements OnInit {
 
     ngOnInit(): void {
 
-        //this.service.getMovieById()
-        //    .subscribe(result => {
-        //        this.selectedMovie = result;
-
-        //        console.log("filmul selectat este " + this.selectedMovie.Title);
-
-        //    }, error => console.error(error));
-
-
-        //this.sub = this.activatedRoute.params.subscribe(params => {
-        //    this.id = params['id'];
-        //    let data = this.getMovieById();
-        //    data.then((res) => {
-        //        this.selectedMovie = res
-        //    });
-        //});
-
         this.getMovieById();
 
     }
 
-   
-
-
-
-
-    //async getMovieById() {
-    //    try {
-    //        let selectedMovie = await this.service.getMovieById(this.id);
-    //        return selectedMovie;
-    //    } catch (e) {
-    //        console.log(e);
-    //    }
-    //}
 
 
     getMovieById(): void {
         const id = +this.activatedRoute.snapshot.paramMap.get('id');
         console.log("id din  details " + id);
-        this.service.getMovieById(id)
+        this.service.getMovieById(id) 
             .subscribe(m => this.selectedMovie = m);
-        console.log("movie este " + this.selectedMovie);
+
+        console.log(this.selectedMovie);
+        
     }
 
     // The route.snapshot is a static image of the route information shortly after the component was created.

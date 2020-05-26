@@ -46,33 +46,15 @@ export class FetchDataComponent implements OnInit {
     getAllMovies() {
         this.service.getMovies()
             .subscribe(data => this.movies = data);
-        console.log("toate filmele " + this.movies);
     }
 
     getFilteredMoviesByDate(form: NgForm) {
         this.service.filterMoviesByDate(form.value.from, form.value.to)     //form.value.
             .subscribe(data => this.movies = data);
-        console.log("filter");
-        console.log(this.movies);
     }
 
 
-    // update
-    populateForm(movie: Movie)  // populam form cu movie selectat si incarcat din server
-    {                           // form data este proprietatea din service referitoare la form
 
-        // this.service.formData = movie;  // se editeaza live in lista si nu vreau, si atunci creez copie cu object.assign
-
-        this.service.formData = Object.assign({}, movie);  // in formData pune o copie a obiectului meu movie
-        console.log("formdata din populate form " +this.service.formData);
-        // Since the form is bound to formData properties,
-        // the form field will get with populated corresponding details.
-
-        console.log("click works");
-        console.log(movie);
-        console.log(movie.Title);
-        console.log(this.service.formData.Title);
-    }
 
 
 
@@ -87,6 +69,28 @@ export class FetchDataComponent implements OnInit {
                     console.log(error);
                 });
   
+    }
+
+
+
+
+
+    // auto fill form
+    populateForm(movie: Movie)  // populam form cu movie selectat si incarcat din server
+    {                           // form data este proprietatea din service referitoare la form
+
+        this.service.formData = movie; 
+        this.service.updateBtnMovieClicked = true;   // se apasa butonul, il apelez in add-movie
+        this.service.idCopied = movie.Id;   // copiez valoare id si apelez din add-movie la update
+
+        console.log(movie);
+
+        //this.service.formData = Object.assign({}, movie);  // in formData pune o copie a obiectului meu movie
+        //console.log(this.service.formData);
+        // Since the form is bound to formData properties,
+        // the form field will get with populated corresponding details.
+
+     
     }
 
 }

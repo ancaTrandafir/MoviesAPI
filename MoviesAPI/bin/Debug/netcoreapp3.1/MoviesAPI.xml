@@ -84,7 +84,6 @@
             
                  POST /Movies
                   {
-                     "id": "3",
                      "dateAdded": "2019-04-05",
                      "description": "Frodo",
                      "director": "Steven Spielberg",

@@ -1,4 +1,7 @@
-export class Movie {
+import { Genre } from "./movie.model";
+import { Comment } from "./comment.model";
+
+export class MovieComm {
   Id: number;
   Title: string;
   Description: string;
@@ -8,12 +11,8 @@ export class Movie {
   Director: string;
   DateAdded: string;
   Watched: boolean;
+  Comments: Comment;
 }
 
 
-export enum Genre {
-  Adventure,
-  Comedy,
-  Horror,
-  SciFi
-}
+

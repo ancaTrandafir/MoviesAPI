@@ -24,7 +24,7 @@ namespace MoviesAPI.ViewModels
         {
             return new MovieGetModel        // populeaza cu date din movie
             {
-                Id = movie.ID,
+                Id = movie.Id,
                 Title = movie.Title,
                 Description = movie.Description,
                 Genre = movie.Genre,

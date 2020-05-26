@@ -49,31 +49,6 @@ namespace HotelMng.Controllers
 
 
 
-        //// GET: movie/5
-        //[HttpGet("{id}")]
-        //public async Task<List<Comment>> GetComments(long id)
-        //{
-
-        //    var movie = await _context.Movies
-        //          .Include(m => m.Comments)     // se incarca proprieteatea movie.Comment
-
-        //          .AsNoTracking()
-        //          .FirstOrDefaultAsync(m => m.ID == id);
-
-        //    List<Comment> ListOfComments= new List<Comment>();
-        //    var comments = from c in _context.Comments
-        //                       where movie.ID == c.MovieID
-        //                       select c;
-
-        //    foreach (var comm in comments)
-        //    {
-        //        ListOfComments.Add(comm);
-        //    }
-
-        //    return ListOfComments;
-        //}
-
-
 
 
 
@@ -89,7 +64,7 @@ namespace HotelMng.Controllers
 
             var movie = _context.Movies
                   .Include(m => m.Comments)     // se incarca proprieteatea movie.Comment       
-                  .FirstOrDefault(m => m.ID == id);
+                  .FirstOrDefault(m => m.Id == id);
 
             // JsonException: A possible object cycle was detected which is not supported. 
             // This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32.
@@ -149,21 +124,30 @@ namespace HotelMng.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMovie(long id, Movie movie)
         {
-            if (id != movie.ID)
+            if (id != movie.Id)
             {
                 return BadRequest();
             }
 
-            if (!MovieExists(id))
-            {
-                return NotFound();
-            }
-
             _context.Entry(movie).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MovieExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return Ok(movie);
+            return NoContent();
         }
 
 
@@ -179,7 +163,6 @@ namespace HotelMng.Controllers
         ///
         ///     POST /Movies
         ///      {
-        ///         "id": "3",
         ///         "dateAdded": "2019-04-05",
         ///         "description": "Frodo",
         ///         "director": "Steven Spielberg",
@@ -195,7 +178,7 @@ namespace HotelMng.Controllers
         /// <returns>A newly created movie</returns>
         /// <response code="201">Returns the newly created item</response>
         /// <response code="400">If the item is null</response> 
-        // POST: /movie
+        // POST: /movies
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -206,7 +189,7 @@ namespace HotelMng.Controllers
             await _context.SaveChangesAsync();
 
 
-            return CreatedAtAction("GetMovie", new { id = movie.ID }, movie);
+            return CreatedAtAction("GetMovieById", new { id = movie.Id }, movie);
             //  return Ok(movie);
         }
 
@@ -240,7 +223,7 @@ namespace HotelMng.Controllers
 
         private bool MovieExists(long id)
         {
-            return _context.Movies.Any(e => e.ID == id);
+            return _context.Movies.Any(e => e.Id == id);
         }
 
 

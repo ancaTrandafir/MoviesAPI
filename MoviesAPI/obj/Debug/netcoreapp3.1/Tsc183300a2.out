@@ -10,6 +10,12 @@ C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\s
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\movie.service.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\fetch-data\fetch-data.component.js
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\fetch-data\fetch-data.component.js.map
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.model.js
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.model.js.map
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\movieComm.model.js
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\movieComm.model.js.map
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\movieComm.service.js
+C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\movieComm.service.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\details\details.component.js
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\details\details.component.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\add-movie\add-movie.component.js
@@ -32,8 +38,6 @@ C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\test.
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\test.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\app.server.module.js
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\app.server.module.js.map
-C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.model.js
-C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.model.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.service.js
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\app\shared\comment.service.js.map
 C:\Users\ancat\source\repos\MoviesAPI\MoviesAPI\ClientApp\dist\out-tsc\src\environments\environment.prod.js

@@ -3,7 +3,7 @@
 
 <form #form="ngForm" autocomplete="on" (submit)="onSubmit(form)">
 
-    <input type="hidden" name="ID" [value]="service.formData.ID">
+    <input type="hidden" name="Id" [value]="service.formData.Id">
 
     <div class="form-group">
         <div class="input-group">
@@ -76,6 +76,7 @@
 
     <div class="form-group">
         <button class="btn btn-success btn-lg btn-block" type="submit" [disabled]="form.invalid">
+            Submit
         </button>
     </div>
 

@@ -1,26 +1,26 @@
 
-<h2 class="text-center">Details for {{selectedMovie.title}}</h2>
+<h2 class="text-center">Details for {{selectedMovie.Title}}</h2>
 <br>
 
-<label>ID: {{selectedMovie.id}}</label>
+<label>Id: {{selectedMovie.Id}}</label>
 <br>
-<label>Title: {{selectedMovie.title}}</label>
+<label>Title: {{selectedMovie.Title}}</label>
 <br>
-<label>Description: {{selectedMovie.description}}</label>
+<label>Description: {{selectedMovie.Description}}</label>
 <br>
-<label>Genre: {{selectedMovie.genre}}</label>
+<label>Genre: {{selectedMovie.Genre}}</label>
 <br>
-<label>Duration: {{selectedMovie.duration}}</label>
+<label>Duration: {{selectedMovie.Duration}}</label>
 <br>
-<label>Year of release: {{selectedMovie.yearOfRelease}}</label>
+<label>Year of release: {{selectedMovie.YearOfRelease}}</label>
 <br>
 <label>Director: {{selectedMovie.Director}}</label>
 <br>
-<label>Date added: {{selectedMovie.dateAdded}}</label>
+<label>Date added: {{selectedMovie.DateAdded | date: 'yyyy-MM-dd'}}</label>
 <br>
-<label>Rating: {{selectedMovie.rating}}</label>
+<label>Rating: {{selectedMovie.Rating}}</label>
 <br>
-<label>Watched: {{selectedMovie.watched}}</label>
+<label>Watched: {{selectedMovie.Watched}}</label>
 <br>
 <br>
 <h3>Comments:</h3>
@@ -36,10 +36,10 @@
     </thead>
 
 
-    <tr *ngFor="let c of selectedMovie.comments">
-         <td>{{c.id}}</td>
-         <td>{{c.text}}</td>
-         <td>{{c.important}}</td>
+    <tr *ngFor="let c of selectedMovie.Comments">
+         <td>{{c.Id}}</td>
+         <td>{{c.Text}}</td>
+         <td>{{c.Important}}</td>
     </tr>
  
 

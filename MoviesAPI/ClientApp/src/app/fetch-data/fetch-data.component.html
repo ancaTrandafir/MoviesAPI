@@ -39,21 +39,21 @@
 
         <tr *ngFor="let m of movies">
 
-            <td>{{m.id}}</td>
-            <td>{{m.title}}</td>
-            <td>{{m.description}}</td>
-            <td>{{m.genre}}</td>
-            <td>{{m.duration}}</td>
-            <td>{{m.yearOfRelease}}</td>
-            <td>{{m.director}}</td>
-            <td>{{m.dateAdded | date: 'yyyy-MM-dd'}}</td>  <!-- pipe format date-->
-            <td>{{m.rating}}</td>
-            <td>{{m.watched}}</td>
-            <td>{{m.numberOfComments}}</td>  
+            <td>{{m.Id}}</td>
+            <td>{{m.Title}}</td>
+            <td>{{m.Description}}</td>
+            <td>{{m.Genre}}</td>
+            <td>{{m.Duration}}</td>
+            <td>{{m.YearOfRelease}}</td>
+            <td>{{m.Director}}</td>
+            <td>{{m.DateAdded | date: 'yyyy-MM-dd'}}</td>  <!-- pipe format date-->
+            <td>{{m.Rating}}</td>
+            <td>{{m.Watched}}</td>
+            <td>{{m.NumberOfComments}}</td>  
             <td>
-                <a [routerLink]="['/fetch-data', m.id]" routerLinkActive="active"> Details</a>
-                <a [routerLink]="['/update', m.id]" routerLinkActive="active" (click)="populateForm(m)"> Update</a>
-                <a [routerLink]="['/delete', m.id]" routerLinkActive="active" (click)="onDelete(m.id)"> Delete</a>
+                <a [routerLink]="['/fetch-data', m.Id]" routerLinkActive="active"> Details</a>
+                <a [routerLink]="['/update', m.Id]" routerLinkActive="active" (click)="populateForm(m)"> Update</a>
+                <a [routerLink]="['/delete', m.Id]" routerLinkActive="active" (click)="onDelete(m.Id)"> Delete</a>
             </td>  <!-- transmit id prin router link -->
 
         </tr>
