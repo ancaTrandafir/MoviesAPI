@@ -41,11 +41,11 @@ namespace MoviesAPI.Controllers
         /// <returns>A list of comments</returns>
         // GET: Comments
         [HttpGet]
-        public IEnumerable<CommentGetModel> GetComments()
+        public IEnumerable<Comment> GetComments()
         {
             IQueryable<Comment> result = _context.Comments;
-            
-           return result.Select(c => CommentGetModel.GetCommentModel(c));
+
+            return result;
         }
 
 

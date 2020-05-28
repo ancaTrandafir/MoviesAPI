@@ -9,14 +9,16 @@ export class CommentService {
 
     readonly rootURL = "https://localhost:44335";
     commentList: Comment[];
-    formData: Comment;
+    formDataComm: Comment;
+    selectedComment: Comment;
+    updateBtnCommClicked: boolean;
 
 
     constructor(private http: HttpClient) {}
   
 
   postComment() {    
-    return this.http.post(this.rootURL + '/comments', this.formData);   // POST function returns Observable
+    return this.http.post(this.rootURL + '/comments', this.formDataComm);   // POST function returns Observable
 
   }
 
@@ -28,22 +30,24 @@ export class CommentService {
   }
 
 
-    //getMovieById(id) {
-    //    console.log("id este " + id);
-    //    this.http.get<Movie>(this.rootURL + '/movies/' + id)
-    //        .subscribe(result => {
-    //            this.selectedMovie = result;
+  getCommentById(id) {
+        console.log("id este " + id);
+      return this.http.get<Comment>(this.rootURL + '/comments/' + id);
+           // .subscribe(result => {
+           //.toPromise()
+           //.then(result => {
+           //     this.selectedComment= result;
 
-    //            console.log("filmul selectat este " + this.selectedMovie.Title);
+           //     console.log("comment selectat este " + this.selectedComment.Text);
 
-    //        }, error => console.error(error));
-    //}
+           // }, error => console.error(error));
+    }
 
 
 
 
   updateComment(formData: Comment) {
-      return this.http.put(this.rootURL + '/comments/' + formData.Id, this.formData);
+      return this.http.put(this.rootURL + '/comments/' + formData.Id, this.formDataComm);
 
   }
 

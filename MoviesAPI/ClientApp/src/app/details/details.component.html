@@ -1,26 +1,26 @@
 
-<h2 class="text-center">Details for {{selectedMovie.Title}}</h2>
+<h2 class="text-center">Details for {{movieCommService.selectedMovie.Title}}</h2>
 <br>
 
-<label>Id: {{selectedMovie.Id}}</label>
+<label>Id: {{movieCommService.selectedMovie.Id}}</label>
 <br>
-<label>Title: {{selectedMovie.Title}}</label>
+<label>Title: {{movieCommService.selectedMovie.Title}}</label>
 <br>
-<label>Description: {{selectedMovie.Description}}</label>
+<label>Description: {{movieCommService.selectedMovie.Description}}</label>
 <br>
-<label>Genre: {{selectedMovie.Genre}}</label>
+<label>Genre: {{movieCommService.selectedMovie.Genre}}</label>
 <br>
-<label>Duration: {{selectedMovie.Duration}}</label>
+<label>Duration: {{movieCommService.selectedMovie.Duration}}</label>
 <br>
-<label>Year of release: {{selectedMovie.YearOfRelease}}</label>
+<label>Year of release: {{movieCommService.selectedMovie.YearOfRelease}}</label>
 <br>
-<label>Director: {{selectedMovie.Director}}</label>
+<label>Director: {{movieCommService.selectedMovie.Director}}</label>
 <br>
-<label>Date added: {{selectedMovie.DateAdded | date: 'yyyy-MM-dd'}}</label>
+<label>Date added: {{movieCommService.selectedMovie.DateAdded | date: 'yyyy-MM-dd'}}</label>
 <br>
-<label>Rating: {{selectedMovie.Rating}}</label>
+<label>Rating: {{movieCommService.selectedMovie.Rating}}</label>
 <br>
-<label>Watched: {{selectedMovie.Watched}}</label>
+<label>Watched: {{movieCommService.selectedMovie.Watched}}</label>
 <br>
 <br>
 <h3>Comments:</h3>
@@ -35,17 +35,64 @@
         </tr>
     </thead>
 
+     
+        <tr *ngFor="let c of movieCommService.selectedMovie.Comments">
+            <td>{{c.Id}}</td>
+            <td>{{c.Text}}</td>
+            <td>{{c.Important}}</td>
+            <td (click)="onDelete(c.Id)"> Delete</td>
+            <td (click)="populateForm(c)"> Update</td>
+        </tr>
 
-    <tr *ngFor="let c of selectedMovie.Comments">
-         <td>{{c.Id}}</td>
-         <td>{{c.Text}}</td>
-         <td>{{c.Important}}</td>
+
+
+    <!--
+    <ng-container *ngFor="let c of comments">        iterez prin comments adica apelez get din controller de Comm
+    Nu pot avea ngFor si ngIf in acelasi element; creez un ng-container, care nu afecteaza DOM 
+    <tr *ngIf="c.movieID == movieService.selectedMovie.Id">
+        <td>{{c.Id}}</td>
+        <td>{{c.Text}}</td>
+        <td>{{c.Important}}</td>
+        <td (click)="onDelete(c.id)"> Delete</td>
+        <td (click)="onUpdate(c.id)"> Update</td>
     </tr>
- 
+    </ng-container>
+    -->
+
+
+
+
+
 
 </table>
 
-<br>
-<button (click)="goBack()">Back</button>
+
+    <br><br>
+    <h3>Add comment:</h3><br>
+                         <form #formComment="ngForm" (submit)="onSubmit(formComment)">
+
+                             <input type="hidden" name="Id" [value]="commentService.formDataComm.Id">
+
+                             <div class="input-group">
+                                 <textarea name="Text" #Text="ngModel" [(ngModel)]="commentService.formDataComm.Text" type="text" class="form-control" placeholder="Text" rows="5" cols="50" required></textarea>
+                             </div>
+                             <br>
+                             <div class="input-group">
+                                 <label for="Important">Important: </label>
+                                 <input name="Important" #Important="ngModel" [(ngModel)]="commentService.formDataComm.Important" class="form-control" type="radio" value="true">
+                                 <label for="Important">Not important: </label>
+                                 <input name="Important" #Important="ngModel" [(ngModel)]="commentService.formDataComm.Important" class="form-control" type="radio" value="false">
+                             </div>
+                             <br>
+                             <div class="input-group">
+                                 <button class="btn btn-success btn-lg btn-block" type="submit" [disabled]="formComment.invalid">
+                                     Add comment
+                                 </button>
+                             </div>
+
+                         </form>
+
+    <br>
+    <button (click)="goBack()">Back</button>
 
 

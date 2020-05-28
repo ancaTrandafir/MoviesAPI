@@ -19,8 +19,11 @@ export class FetchDataComponent implements OnInit {
     constructor(private service: MovieService) { }
 
     ngOnInit() {
-        this.resetForm();
+        this.getAllMovies();
     }
+
+
+
 
 
 
@@ -31,12 +34,7 @@ export class FetchDataComponent implements OnInit {
     }
 
 
-    resetForm(form?: NgForm) {    // form? parametrul poate fi null
-        if (this.submitPressed == false)
-            this.getAllMovies();
-        else 
-            this.getFilteredMoviesByDate(form);  // s-a apasat submit, deci fac filter
-    }
+
 
 
 
@@ -48,9 +46,21 @@ export class FetchDataComponent implements OnInit {
             .subscribe(data => this.movies = data);
     }
 
+
+
+
+
     getFilteredMoviesByDate(form: NgForm) {
+
+        console.log(form.value.from);
+
         this.service.filterMoviesByDate(form.value.from, form.value.to)     //form.value.
-            .subscribe(data => this.movies = data);
+            // .subscribe(data => {
+            .toPromise()
+            .then(response => {
+                this.movies = response;
+                console.log(this.movies)
+            });
     }
 
 
@@ -79,7 +89,7 @@ export class FetchDataComponent implements OnInit {
     populateForm(movie: Movie)  // populam form cu movie selectat si incarcat din server
     {                           // form data este proprietatea din service referitoare la form
 
-        this.service.formData = movie; 
+        this.service.formDataMovie = movie; 
         this.service.updateBtnMovieClicked = true;   // se apasa butonul, il apelez in add-movie
         this.service.idCopied = movie.Id;   // copiez valoare id si apelez din add-movie la update
 
@@ -91,6 +101,14 @@ export class FetchDataComponent implements OnInit {
         // the form field will get with populated corresponding details.
 
      
+    }
+
+
+
+
+    refreshList() {
+        console.log("refresh clicked");
+        this.getAllMovies();
     }
 
 }

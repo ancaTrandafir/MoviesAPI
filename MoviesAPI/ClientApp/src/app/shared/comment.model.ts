@@ -1,6 +1,6 @@
 export class Comment {
     Id: number;
-    MovieId: number;
+    MovieID: number;
     Text: string;
     Important: boolean
 }
