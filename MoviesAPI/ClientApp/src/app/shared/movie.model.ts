@@ -7,13 +7,14 @@ export class Movie {
   YearOfRelease: number;
   Director: string;
   DateAdded: string;
+  Rating: number;
   Watched: boolean;
 }
 
 
 export enum Genre {
-  Adventure,
-  Comedy,
-  Horror,
-  SciFi
+  Adventure  = 0,
+  Comedy = 1,
+  Horror = 2,
+  SciFi = 3
 }

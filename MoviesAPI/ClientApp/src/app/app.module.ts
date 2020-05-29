@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -12,6 +13,7 @@ import { MovieCommService } from './shared/movieComm.service';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DetailsComponent } from './details/details.component';
 import { AddMovieComponent } from './add-movie/add-movie.component';
+import { UpdateMovieComponent } from './update-movie/update-movie.component';
 
 
 @NgModule({
@@ -21,12 +23,14 @@ import { AddMovieComponent } from './add-movie/add-movie.component';
         HomeComponent,
         FetchDataComponent,
         DetailsComponent,
-        AddMovieComponent
+        AddMovieComponent,
+        UpdateMovieComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule,
         FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule
     ],
 

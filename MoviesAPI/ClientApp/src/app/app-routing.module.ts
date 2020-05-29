@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {FetchDataComponent} from "./fetch-data/fetch-data.component";
 import { DetailsComponent } from "./details/details.component";
 import { AddMovieComponent } from "./add-movie/add-movie.component";
+import { UpdateMovieComponent } from "./update-movie/update-movie.component";
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
     { path: 'fetch-data', component: FetchDataComponent },
     { path: 'fetch-data/:id', component: DetailsComponent },
     { path: 'add', component: AddMovieComponent },
-    { path: 'update/:id', component: AddMovieComponent },
+    { path: 'update/:id', component: UpdateMovieComponent },
     { path: 'delete/:id', component: FetchDataComponent } 
  
 ];

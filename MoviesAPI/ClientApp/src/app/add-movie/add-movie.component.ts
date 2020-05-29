@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from '../shared/movie.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Output, EventEmitter } from '@angular/core';     // Event Emitter pt submit reactive form
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
+import { Movie } from '../shared/movie.model';
+
 
 
 @Component({
@@ -9,56 +13,88 @@ import { Location } from '@angular/common';
   templateUrl: './add-movie.component.html',
   styles: []
 })
+
+
+
+
 export class AddMovieComponent implements OnInit {
 
     idCopied: number;
+    movieReactiveForm: FormGroup;
+
+    get Title() {
+        return this.movieReactiveForm.get('Title');
+    }
+
+    get Description() {
+        return this.movieReactiveForm.get('Description');
+    }
+
+    get Genre() {
+        return this.movieReactiveForm.get('Genre');
+    }
+
+    get Duration() {
+        return this.movieReactiveForm.get('Duration');
+    }
+
+    get YearOfRelease() {
+        return this.movieReactiveForm.get('YearOfRelease');
+    }
+
+    get Director() {
+        return this.movieReactiveForm.get('Director');
+    }
+
+    get DateAdded() {
+        return this.movieReactiveForm.get('DateAdded');
+    }
+
+    get Rating() {
+        return this.movieReactiveForm.get('Rating');
+    }
+
+    get Watched() {
+        return this.movieReactiveForm.get('Watched');
+    }
+
+
+
+    // Form state
+    loading = false;
+    success = false;
+
+
+
 
     constructor(public service: MovieService,
-                private location: Location
+        private location: Location,
+        private fb: FormBuilder
     ) { }
 
 
 
 
 
+
     ngOnInit() {
-   
-        if (this.service.updateBtnMovieClicked == true) // daca s-a apasat butonul de Update
-            this.autofillFormForUpdate();
 
-        else 
+
+        this.movieReactiveForm = this.fb.group({
+            Title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+            Description: ['', [Validators.required]],
+            Genre: ['', [Validators.required]],
+            Duration: ['', [Validators.required]],
+            YearOfRelease: ['', [Validators.required, Validators.min(1900), Validators.max(2020)]],
+            Director: ['', [Validators.required]],
+            DateAdded: ['', [Validators.required]],         // ar trebui custom validator pt dateAdded < Date.now
+            Rating: ['', [Validators.required]],
+            Watched: ['', [Validators.required]]
+        });
+    
+
             this.resetForm();   // initialize model property  
-       }
-
-
-
-
-
-
-    resetForm(formMovie?: NgForm) {    // form? parametrul poate fi null
-
-
-        if (formMovie != null) {
-            console.log(this.idCopied);
-            formMovie.form.reset();  // form.reset() -> all desccendents are marked pristine and untouched and values are null
-           
-        }
-
-        
-            this.service.formDataMovie = {  // initialize model property
-                Id: 0,
-                Title: '',
-                Description: '',
-                Genre: null,
-                Duration: null,
-                YearOfRelease: null,
-                Director: '',
-                DateAdded: '',
-                Watched: null
-            }
-        this.service.updateBtnMovieClicked = false;   // resetez la false, altfel ramane marcat ca apasat
-        this.service.formDataMovie.Id = 0; // il fac explicit 0 pt ca ramane suprascris cu id movie updatat anterior din cauza apelului  autofillFormForUpdate()  daca am apucat sa fac inainte update
-    }   
+    }
 
 
 
@@ -66,85 +102,44 @@ export class AddMovieComponent implements OnInit {
 
 
   
-    onSubmit(formMovie: NgForm) {
+    onSubmit(form) {
 
-        // facem diferenta intre Post si PUT verificand ID; undefined sau 0
-        if (this.service.formDataMovie.Id == 0)
-       // if (formMovie.value.Id == 0 && this.service.updateBtnMovieClicked == false)     // nu e apasat butonul de update
-            this.insertRecord(formMovie);    // 0 e insert!!!!
-
-        else  // update
-        { 
-            this.updateRecord(formMovie); // daca e undefined e update
-            formMovie.form.reset();  // form.reset() -> all desccendents are marked pristine and untouched and values are null
-            this.service.updateBtnMovieClicked == false   // il resetez la false ca altfel ramane parcat ca true daca am apucat sa fac update inainte
-        }
-    }
-
-
-
-
-
-
-
-
-
-    insertRecord(formMovie: NgForm) {  // POST request on submit
+        this.movieReactiveForm = form;  // form transmis ca parametru din html
+        this.service.formDataMovie = this.movieReactiveForm.value;  // service.formDataMovie ia valoarea form din html
+      
         this.service.postMovie()
-           // .subscribe(   // // Call subscribe() to start listening for updates.
+            // .subscribe(   // // Call subscribe() to start listening for updates.
             .toPromise()
             .then(
                 response => {    // if POST operation succeeds we set the form to initial values
                     console.log("successfully added");
-                    this.resetForm(formMovie);
+                    this.resetForm();
                     this.service.getMovies(); // refresh la lista;
                     this.location.back();
                 },
                 error => {
                     console.log(error)
                 })
-     
-     
+
     }
 
 
 
 
-
-
-
-
-
-    updateRecord(formMovie: NgForm) {  // PUT request on submit
-
-        console.log(formMovie);
-        this.service.updateMovie(formMovie.value) // ID
-            //  .subscribe(   // // Call subscribe() to start listening for updates.
-            .toPromise()
-            .then(
-                response => {    // if PUT operation succeeds we set the form to initial values
-                    console.log("successfully updated");
-                    this.resetForm(formMovie);
-                    this.service.getMovies(); // refresh la lista;
-                    this.location.back();
-                },
-
-                error => {
-                    console.log(error)
-                })
-    }
-
-
-
-
-
-
-    autofillFormForUpdate() {
-        this.service.formDataMovie.Id = this.service.idCopied;   // reatribui valoarea id din fetch-data cand l-am selectat, pt ca acum este undefined
-        console.log(this.service.formDataMovie.Id);
-        this.service.formDataMovie;
-        console.log(this.service.formDataMovie);
-        
+    resetForm() {
+        this.service.formDataMovie = {  // initialize model property
+                        Id: 0,
+                        Title: '',
+                        Description: '',
+                        Genre: null,
+                        Duration: null,
+                        YearOfRelease: null,
+                        Director: '',
+                        DateAdded: '',
+                        Rating: null,
+                        Watched: null
+                    }
+           
     }
 
 
