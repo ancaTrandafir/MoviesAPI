@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Movies.Helpers;
+using MoviesAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +18,20 @@ namespace Movies.Models
 
         {
              context.Database.EnsureCreated();
-
+					
+					//Look for any users.
+			  if (!context.Users.Any())
+                {
+                    context.Users.Add(new User
+                    {
+                        FirstName = "Anca",
+                        LastName = "Trandafir",
+                        Username = "anka",
+                        Password = HashUtils.GetHashString("parola")
+                    });
+                    context.SaveChanges();
+                }
+			 
                 // Look for any movies
                 // If there are any movies in the DB, the seed initializer returns and no movies are added.
                 if (context.Movies.Any())

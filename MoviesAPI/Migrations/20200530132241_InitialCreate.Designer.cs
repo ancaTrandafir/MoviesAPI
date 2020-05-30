@@ -10,7 +10,7 @@ using Movies.Models;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(MoviesDbContext))]
-    [Migration("20200525103153_InitialCreate")]
+    [Migration("20200530132241_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace MoviesAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("AddedById")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("Important")
                         .HasColumnType("bit");
 
@@ -39,6 +42,8 @@ namespace MoviesAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddedById");
+
                     b.HasIndex("MovieID");
 
                     b.ToTable("Comments");
@@ -46,10 +51,13 @@ namespace MoviesAPI.Migrations
 
             modelBuilder.Entity("Movies.Models.Movie", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("AddedById")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
@@ -81,18 +89,58 @@ namespace MoviesAPI.Migrations
                     b.Property<int>("YearOfRelease")
                         .HasColumnType("int");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddedById");
 
                     b.ToTable("Movies");
                 });
 
+            modelBuilder.Entity("MoviesAPI.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("Movies.Models.Comment", b =>
                 {
+                    b.HasOne("MoviesAPI.Models.User", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
+
                     b.HasOne("Movies.Models.Movie", "Movie")
                         .WithMany("Comments")
                         .HasForeignKey("MovieID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Movies.Models.Movie", b =>
+                {
+                    b.HasOne("MoviesAPI.Models.User", "AddedBy")
+                        .WithMany()
+                        .HasForeignKey("AddedById");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MoviesAPI.Models;
 using MoviesAPI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,9 @@ namespace Movies.Models
         // DbSet = O tabela din baza de date
         public DbSet<Movie> Movies{ get; set; }
         public DbSet<Comment> Comments{ get; set; }
+        public DbSet<User> Users{ get; set; }
 
-       // public DbSet<MovieGetModel> GetModelMovies { get; set; }
+        // public DbSet<MovieGetModel> GetModelMovies { get; set; }
     }
 }
 

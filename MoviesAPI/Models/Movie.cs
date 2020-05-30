@@ -1,4 +1,5 @@
 using Movies.Models;
+using MoviesAPI.Models;
 using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,8 @@ namespace Movies.Models
 
         [JsonIgnore]
         public List<Comment> Comments { get; set; }
+
+        public User AddedBy { get; set; }
     }
 
 }
